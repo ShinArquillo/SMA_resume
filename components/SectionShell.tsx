@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, useScroll, useSpring, useTransform } from 'framer-motion'
+import { motion, useScroll, useSpring } from 'framer-motion'
 import { useRef, type ReactNode } from 'react'
 import AnimatedHeading from './AnimatedHeading'
 
@@ -16,8 +16,10 @@ interface SectionShellProps {
 }
 
 /**
- * Editorial section frame. On desktop the title block sticks while the content
- * scrolls past it, and a hairline rail fills to show progress through the section.
+ * Editorial section frame. Hierarchy reads top-down: index + eyebrow on one
+ * line, then the title, then a short caption. On desktop the split variant
+ * keeps the title block sticky while content scrolls past it, and the hairline
+ * rail fills to show progress through the section.
  */
 export default function SectionShell({
   id,
@@ -34,31 +36,26 @@ export default function SectionShell({
     offset: ['start 80%', 'end 90%'],
   })
   const fill = useSpring(scrollYProgress, { stiffness: 90, damping: 30, mass: 0.35 })
-  const numberOpacity = useTransform(scrollYProgress, [0, 0.25], [0.35, 1])
 
   const header = (
     <div className={layout === 'split' ? 'lg:sticky lg:top-28' : ''}>
-      <div className="flex items-center gap-4">
-        <motion.span
-          style={{ opacity: numberOpacity }}
-          className="font-mono text-[11px] tabular-nums tracking-[0.24em] text-accent"
-        >
+      <div className="flex items-center gap-3">
+        <span className="font-mono text-[11.5px] tabular-nums tracking-[0.18em] text-accent-text">
           {index}
-        </motion.span>
-        <span className="relative h-px flex-1 max-w-[7rem] bg-line lg:max-w-none">
+        </span>
+        <span className="relative h-px w-10 shrink-0 bg-line">
           <motion.span
             style={{ scaleX: fill }}
             className="absolute inset-0 origin-left bg-accent"
           />
         </span>
+        {eyebrow ? <span className="eyebrow before:hidden">{eyebrow}</span> : null}
       </div>
 
       <AnimatedHeading
         text={title}
-        className={`t-section mt-5 ${layout === 'stacked' ? 't-section-xl' : ''}`}
+        className={`t-section mt-4 ${layout === 'stacked' ? 't-section-xl' : ''}`}
       />
-
-      {eyebrow ? <p className="eyebrow mt-5">{eyebrow}</p> : null}
 
       {caption ? (
         <motion.p
@@ -66,7 +63,7 @@ export default function SectionShell({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-10% 0px' }}
           transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-4 max-w-sm text-sm leading-relaxed text-muted"
+          className="mt-4 max-w-sm text-[0.95rem] leading-relaxed text-muted"
         >
           {caption}
         </motion.p>
@@ -84,7 +81,7 @@ export default function SectionShell({
           </div>
         ) : (
           <>
-            <header className="mb-12 md:mb-16">{header}</header>
+            <header className="mb-10 md:mb-12">{header}</header>
             <div className="min-w-0">{children}</div>
           </>
         )}

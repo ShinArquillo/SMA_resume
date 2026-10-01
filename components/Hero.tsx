@@ -49,8 +49,13 @@ const iconLinks = [
 
 const ease = [0.22, 1, 0.36, 1] as const
 
+/**
+ * Stage padding clears the fixed header (top) and the mobile bottom nav
+ * (bottom). On phones the copy anchors to the bottom so the portrait stays
+ * visible above it; on wider screens it centres beside the portrait.
+ */
 const stageShell =
-  'absolute inset-0 flex items-center px-5 py-24 pb-28 sm:px-6 md:px-10 md:py-28 lg:max-w-[min(100%,44rem)] lg:pr-8'
+  'absolute inset-0 flex items-end px-5 pb-[5.75rem] pt-[5.5rem] sm:px-6 md:items-center md:px-10 md:py-28 lg:max-w-[min(100%,44rem)] lg:pr-8'
 
 function Intro() {
   return (
@@ -59,13 +64,13 @@ function Intro() {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease }}
-        className="mb-7 inline-flex items-center gap-2.5 rounded-full border border-line bg-paper-raised/60 px-3.5 py-1.5 backdrop-blur-sm"
+        className="mb-5 inline-flex max-w-full items-center gap-2.5 rounded-full border border-line bg-paper-raised/70 px-3.5 py-1.5 backdrop-blur-sm md:mb-7"
       >
-        <span className="relative flex h-1.5 w-1.5">
+        <span className="relative flex h-1.5 w-1.5 shrink-0">
           <span className="absolute inline-flex h-full w-full animate-pulse-ring rounded-full bg-accent" />
           <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
         </span>
-        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
+        <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted">
           Open to full-time · Onsite, hybrid, or remote
         </span>
       </motion.div>
@@ -92,12 +97,12 @@ function Intro() {
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: 0.16, ease }}
-        className="mt-9 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[10.5px] uppercase tracking-[0.18em] text-muted"
+        className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[11.5px] uppercase tracking-[0.14em] text-muted md:mt-8"
       >
         <span className="text-ink">Full-Stack Developer</span>
-        <span className="text-accent">/</span>
+        <span className="text-accent-text">/</span>
         <span className="text-ink">Data Analyst</span>
-        <span className="text-accent">/</span>
+        <span className="text-accent-text">/</span>
         <span className="text-ink">Project Lead</span>
       </motion.p>
 
@@ -105,7 +110,7 @@ function Intro() {
         initial={{ opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: 0.22, ease }}
-        className="t-lede mt-6 max-w-[30ch] text-ink"
+        className="t-lede mt-4 max-w-[30ch] text-ink md:mt-6"
       >
         I build production software and turn data into decisions.
       </motion.p>
@@ -114,7 +119,7 @@ function Intro() {
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: 0.28, ease }}
-        className="mt-4 max-w-[46ch] text-sm leading-relaxed text-muted md:text-[0.95rem]"
+        className="mt-3 max-w-[46ch] text-[0.9rem] leading-relaxed text-muted md:mt-4 md:text-[0.95rem]"
       >
         At Tee Vision Printing I work on the live storefront, internal tools, Chrome extensions, and
         Google Ads. I also lead client commissions from scope through production deployment.
@@ -124,7 +129,7 @@ function Intro() {
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.65, delay: 0.34, ease }}
-        className="relative z-20 mt-9 flex flex-wrap items-center gap-3"
+        className="relative z-20 mt-6 flex flex-wrap items-center gap-3 md:mt-9"
       >
         <Magnetic strength={8}>
           <a href="mailto:arquillosheenamae@gmail.com" className="btn-primary group">
@@ -146,7 +151,7 @@ function Intro() {
             />
           </Link>
         </Magnetic>
-        <Magnetic strength={8}>
+        <Magnetic strength={8} className="hidden sm:inline-flex">
           <a href="#experience" className="btn-ghost group">
             Experience
             <FiArrowDown
@@ -162,7 +167,7 @@ function Intro() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.42 }}
         aria-label="Profiles and sections"
-        className="relative z-20 mt-7"
+        className="relative z-20 mt-5 md:mt-7"
       >
         <ul className="flex items-center gap-2.5">
           {iconLinks.map(({ label, href, icon: Icon, external }) => (
@@ -186,76 +191,78 @@ function Intro() {
   )
 }
 
+const proofRows = [
+  {
+    k: 'Current',
+    v: (
+      <>
+        Full-stack developer at Tee Vision Printing (remote), on the live storefront{' '}
+        <a
+          href="https://www.teevisionprinting.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="link-line"
+        >
+          teevisionprinting.com
+        </a>
+      </>
+    ),
+  },
+  {
+    k: 'Systems',
+    v: 'Employee Portal PWA · Ads and SEO operations portal · CRM and authentication · Chrome extensions',
+  },
+  { k: 'Growth', v: 'Google Ads · conversion tracking · Microsoft Clarity · technical SEO' },
+  { k: 'Background', v: 'Tech Executive Labs (Bookside) · client commissions · university capstone' },
+]
+
 function Proof() {
   return (
     <div className="relative z-10 w-full max-w-[38rem]">
       <p className="eyebrow">Proof points</p>
 
-      <div className="mt-8 grid grid-cols-3 gap-4 md:mt-10 md:gap-8">
+      <div className="mt-6 grid grid-cols-3 gap-4 md:mt-8 md:gap-8">
         {stats.map((s, i) => (
           <motion.div
             key={s.label}
-            className="min-w-0 border-t border-line pt-4"
+            className="min-w-0 border-t border-line pt-3 md:pt-4"
             initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.08, duration: 0.55, ease }}
           >
-            <div className="t-display text-[2.75rem] font-bold leading-none text-ink md:text-6xl">
+            <div className="t-display text-[2.25rem] font-bold leading-none text-ink md:text-6xl">
               <Counter value={s.value} suffix={s.suffix} />
             </div>
-            <div className="mt-3 max-w-[9rem] font-mono text-[9.5px] uppercase leading-snug tracking-[0.14em] text-muted">
+            <div className="mt-2 max-w-[9rem] font-mono text-[11px] uppercase leading-snug tracking-[0.12em] text-muted md:mt-3">
               {s.label}
             </div>
           </motion.div>
         ))}
       </div>
 
-      <ul className="mt-9 max-w-lg space-y-3.5 border-t border-line pt-7 text-sm leading-relaxed text-muted md:mt-11">
-        <li>
-          <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-accent">
-            Current
-          </span>
-          <span className="mx-2 text-line">/</span>
-          Full-stack developer at Tee Vision Printing (remote), on the live storefront{' '}
-          <a
-            href="https://www.teevisionprinting.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="link-line"
-          >
-            teevisionprinting.com
-          </a>
-        </li>
-        <li>
-          <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-accent">
-            Systems
-          </span>
-          <span className="mx-2 text-line">/</span>
-          Employee Portal PWA · Ads and SEO operations portal · CRM and authentication · Chrome
-          extensions
-        </li>
-        <li>
-          <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-accent">
-            Growth
-          </span>
-          <span className="mx-2 text-line">/</span>
-          Google Ads · conversion tracking · Microsoft Clarity · technical SEO
-        </li>
-        <li>
-          <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-accent">
-            Background
-          </span>
-          <span className="mx-2 text-line">/</span>
-          Tech Executive Labs (Bookside) · client commissions · university capstone
-        </li>
-      </ul>
+      <dl className="mt-6 max-w-lg space-y-2.5 border-t border-line pt-5 text-[0.9rem] leading-relaxed text-muted md:mt-9 md:space-y-3.5 md:pt-7 md:text-[0.95rem]">
+        {proofRows.map((row) => (
+          <div key={row.k} className="grid grid-cols-[5.5rem_1fr] gap-3 md:grid-cols-[6.5rem_1fr]">
+            <dt className="pt-[0.3em] font-mono text-[11px] uppercase tracking-[0.14em] text-accent-text">
+              {row.k}
+            </dt>
+            <dd>{row.v}</dd>
+          </div>
+        ))}
+      </dl>
 
-      <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3">
-        <a href="#experience" className="link-line font-mono text-[11px] uppercase tracking-[0.16em]">
+      <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 md:mt-7">
+        <a
+          href="#experience"
+          className="link-line py-2 font-mono text-[11.5px] uppercase tracking-[0.14em]"
+        >
           See experience <FiArrowUpRight className="text-xs" />
         </a>
-        <a href="#projects" className="link-line font-mono text-[11px] uppercase tracking-[0.16em]">
+        <a
+          href="#projects"
+          className="link-line py-2 font-mono text-[11.5px] uppercase tracking-[0.14em]"
+        >
           Browse projects <FiArrowUpRight className="text-xs" />
         </a>
       </div>
@@ -281,7 +288,7 @@ function Sun() {
       onClick={toggleTheme}
       aria-label={`Switch to ${isLight ? 'night' : 'day'} mode`}
       title="Toggle day / night"
-      className="group absolute right-[6%] top-[12%] z-30 h-16 w-16 transition-transform duration-300 hover:scale-105 active:scale-95 md:h-24 md:w-24"
+      className="group absolute right-[6%] top-[14%] z-30 hidden h-20 w-20 transition-transform duration-300 hover:scale-105 active:scale-95 md:block lg:h-24 lg:w-24"
     >
       <div className="absolute inset-[-30%] rounded-full bg-[radial-gradient(circle,rgba(255,205,110,0.45),transparent_70%)] blur-xl dark:bg-[radial-gradient(circle,rgba(200,220,255,0.28),transparent_70%)]" />
       <motion.div
@@ -320,9 +327,11 @@ function Backdrop({ progress }: { progress?: MotionValue<number> }) {
           <HeroFrames />
         </div>
       )}
+      {/* Desktop: fade the left column so copy sits on paper, not on the portrait */}
       <div className="absolute inset-0 hidden bg-gradient-to-r from-paper from-[8%] via-paper/80 via-[42%] to-transparent to-[70%] md:block" />
       <div className="absolute inset-y-0 left-0 hidden w-[min(48%,34rem)] bg-gradient-to-r from-paper via-paper/40 to-transparent md:block" />
-      <div className="absolute inset-0 bg-gradient-to-t from-paper via-paper/55 via-[38%] to-paper/20 md:from-paper/50 md:via-transparent md:to-paper/30" />
+      {/* Mobile: solid scrim under the bottom-anchored copy */}
+      <div className="absolute inset-0 bg-gradient-to-t from-paper from-[18%] via-paper/85 via-[48%] to-paper/10 md:from-paper/50 md:via-transparent md:to-paper/30" />
     </div>
   )
 }
@@ -385,7 +394,7 @@ export default function Hero() {
   if (reduce) {
     return (
       <section id="home" className="relative">
-        <div className="relative flex min-h-[88vh] items-center overflow-hidden">
+        <div className="relative flex min-h-[88svh] items-end overflow-hidden pb-24 pt-24 md:items-center md:pb-28 md:pt-28">
           <Backdrop />
           <div className="relative mx-auto w-full max-w-container px-5 sm:px-6 md:px-10">
             <Intro />
@@ -400,8 +409,8 @@ export default function Hero() {
   }
 
   return (
-    <section id="home" ref={ref} className="relative h-[180vh]">
-      <div className="sticky top-0 h-screen overflow-hidden">
+    <section id="home" ref={ref} className="relative h-[180svh]">
+      <div className="sticky top-0 h-svh overflow-hidden">
         <Backdrop progress={scrollYProgress} />
 
         <div className="relative z-20 mx-auto h-full max-w-container">
@@ -417,7 +426,7 @@ export default function Hero() {
 
         {/* Vertical scroll rail */}
         <div className="pointer-events-none absolute bottom-10 left-6 z-20 hidden items-end gap-3 lg:flex">
-          <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted [writing-mode:vertical-rl]">
+          <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted [writing-mode:vertical-rl]">
             Scroll
           </span>
           <span className="relative block h-24 w-px bg-line">
@@ -432,7 +441,7 @@ export default function Hero() {
           style={{ opacity: cueOpacity }}
           className="absolute bottom-8 left-1/2 z-20 hidden -translate-x-1/2 flex-col items-center gap-2 md:flex lg:hidden"
         >
-          <span className="font-mono text-[10px] tracking-[0.32em] text-muted">SCROLL</span>
+          <span className="font-mono text-[11px] tracking-[0.18em] text-muted">SCROLL</span>
           <motion.span
             className="h-8 w-px origin-top bg-accent"
             animate={{ scaleY: [0.35, 1, 0.35], opacity: [0.35, 1, 0.35] }}

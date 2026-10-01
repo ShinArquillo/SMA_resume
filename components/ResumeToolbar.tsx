@@ -39,8 +39,8 @@ export default function ResumeToolbar() {
         Open PDF
       </a>
 
-      <p className="basis-full font-mono text-[10px] uppercase tracking-[0.12em] text-neutral-500">
-        Download serves the same PDF file as applications. The page below mirrors that document.
+      <p className="basis-full text-[13px] leading-relaxed text-neutral-600">
+        The download is the same PDF sent with applications. The page below mirrors that document.
       </p>
     </div>
   )

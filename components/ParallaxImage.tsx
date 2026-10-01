@@ -57,7 +57,7 @@ export default function ParallaxImage({
         <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-[linear-gradient(120deg,transparent_35%,color-mix(in_srgb,var(--accent)_22%,transparent)_50%,transparent_65%)]" />
 
         {caption && (
-          <div className="absolute bottom-3 left-3 z-10 rounded-full border border-white/20 bg-black/30 px-2.5 py-1 font-mono text-[9.5px] tracking-[0.2em] text-white/90 backdrop-blur-sm">
+          <div className="absolute bottom-3 left-3 z-10 rounded-full border border-white/20 bg-black/30 px-2.5 py-1 font-mono text-[11px] tracking-[0.16em] text-white/90 backdrop-blur-sm">
             {caption}
           </div>
         )}

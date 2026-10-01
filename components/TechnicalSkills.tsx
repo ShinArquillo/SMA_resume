@@ -79,7 +79,7 @@ export default function TechnicalSkills() {
               <h3 className="t-display text-lg font-semibold tracking-tight md:text-xl">
                 {category}
               </h3>
-              <span className="font-mono text-[10px] tabular-nums tracking-[0.2em] text-muted transition-colors duration-300 group-hover:text-accent">
+              <span className="font-mono text-[11px] tabular-nums tracking-[0.16em] text-muted transition-colors duration-300 group-hover:text-accent-text">
                 {String(index + 1).padStart(2, '0')}
               </span>
             </div>

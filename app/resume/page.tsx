@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import ResumeToolbar from '@/components/ResumeToolbar'
-import { person } from '@/lib/site'
+import { person, siteLabel, siteUrl } from '@/lib/site'
 
 export const metadata: Metadata = {
   title: 'Resume',
@@ -135,7 +135,7 @@ export default function ResumePage() {
           </p>
           <p className="resume-contact">
             Portfolio:{' '}
-            <a href="https://sheena-arquillo.vercel.app">sheena-arquillo.vercel.app</a>
+            <a href={siteUrl}>{siteLabel}</a>
             {' | '}
             LinkedIn:{' '}
             <a href={person.linkedin}>linkedin.com/in/sheena-mae-arquillo-05b169399</a>

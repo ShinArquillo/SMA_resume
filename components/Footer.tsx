@@ -100,19 +100,19 @@ export default function Footer() {
             <p className="font-display text-base font-semibold tracking-tight">
               Sheena Mae Arquillo
             </p>
-            <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.18em] text-muted">
+            <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.18em] text-muted">
               Full-Stack Developer · Data Analyst · Project Lead
             </p>
           </div>
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[10.5px] text-muted">
-            <a href="mailto:arquillosheenamae@gmail.com" className="link-line">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-1 font-mono text-[11.5px] text-muted">
+            <a href="mailto:arquillosheenamae@gmail.com" className="link-line py-1.5">
               arquillosheenamae@gmail.com
             </a>
             <a
               href="https://github.com/ShinArquillo"
               target="_blank"
               rel="noopener noreferrer"
-              className="link-line"
+              className="link-line py-1.5"
             >
               github.com/ShinArquillo
             </a>
@@ -120,7 +120,7 @@ export default function Footer() {
               href="https://github.com/22-36829"
               target="_blank"
               rel="noopener noreferrer"
-              className="link-line"
+              className="link-line py-1.5"
             >
               github.com/22-36829
             </a>

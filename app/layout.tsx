@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import './globals.css'
 import { ThemeProvider } from '@/contexts/ThemeContext'
 import { Syne, Manrope, JetBrains_Mono } from 'next/font/google'
@@ -78,6 +78,16 @@ export const metadata: Metadata = {
   },
 }
 
+export const viewport: Viewport = {
+  themeColor: '#f7f5f0',
+  width: 'device-width',
+  initialScale: 1,
+}
+
+/* Applies the saved theme before first paint so a Night visitor never sees a
+   Day flash. Kept tiny and inline on purpose. */
+const themeScript = `try{if(localStorage.getItem('theme')==='dark'){document.documentElement.classList.add('dark')}}catch(e){}`
+
 const personSchema = {
   '@context': 'https://schema.org',
   '@type': 'Person',
@@ -116,7 +126,12 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${syne.variable} ${manrope.variable} ${jetbrains.variable}`}
     >
+      <head>
+        {/* First hero frame is the LCP image on every viewport. */}
+        <link rel="preload" as="image" href="/frames/frame-0001.jpg" />
+      </head>
       <body>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}

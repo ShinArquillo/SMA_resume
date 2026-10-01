@@ -18,7 +18,8 @@ function Word({
   progress: MotionValue<number>
   range: [number, number]
 }) {
-  const opacity = useTransform(progress, range, [0.16, 1])
+  // Floor stays legible (4.5:1 on paper at body size) so un-lit words still read.
+  const opacity = useTransform(progress, range, [0.62, 1])
   // Inline + real space characters (not flex + margin) so crawlers and
   // copy/paste read normal words with spaces between them.
   return (

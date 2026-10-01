@@ -41,7 +41,7 @@ function ContactLinks() {
     <ul className="mt-2.5 space-y-1.5 border-t border-line pt-2.5">
       {CONTACT_LINKS.map((link) => (
         <li key={link.href} className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 text-sm">
-          <span className="font-mono text-[10px] tracking-[0.12em] text-muted">{link.label}</span>
+          <span className="font-mono text-[11px] tracking-[0.12em] text-muted">{link.label}</span>
           <a
             href={link.href}
             target={link.href.startsWith('mailto:') ? undefined : '_blank'}
@@ -198,7 +198,7 @@ function getAnswer(q: string): Reply {
 
   if (/(doctor\s*dose|doctors?\s*dose|dubai|collab)/.test(t)) {
     return reply(
-      'Doctors Dose is a collaborative side project (Dubai skincare): admin interface and API support. Live: doctorsdose-co-uk.vercel.app.'
+      'Doctors Dose is a collaborative side project (Dubai skincare): admin interface and API support. Live: doctorsdose.co.uk.'
     )
   }
 
@@ -297,7 +297,7 @@ export default function ChatBot() {
         onClick={() => setOpen((o) => !o)}
         aria-label={open ? 'Close chat' : 'Open chat'}
         aria-expanded={open}
-        className="glass-panel fixed bottom-5 right-5 z-[70] flex h-12 w-12 items-center justify-center rounded-full text-ink shadow-[0_14px_34px_-16px_rgba(0,0,0,0.45)] transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/50 hover:text-accent active:translate-y-0 md:bottom-6 md:right-6"
+        className="glass-panel fixed bottom-5 right-5 z-[70] flex h-12 w-12 items-center justify-center rounded-full text-ink shadow-[0_14px_34px_-16px_rgba(0,0,0,0.45)] transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/50 hover:text-accent-text active:translate-y-0 md:bottom-6 md:right-6"
       >
         {open ? <FiX className="text-lg" /> : <FiMessageSquare className="text-lg" />}
       </button>
@@ -318,7 +318,7 @@ export default function ChatBot() {
                 <span className="h-1.5 w-1.5 rounded-full bg-accent" />
                 <div className="leading-tight">
                   <p className="font-display text-sm font-semibold tracking-tight">Ask about Sheena</p>
-                  <p className="font-mono text-[9.5px] uppercase tracking-[0.2em] text-muted">
+                  <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted">
                     Quick guide
                   </p>
                 </div>
@@ -326,7 +326,7 @@ export default function ChatBot() {
               <button
                 onClick={() => setOpen(false)}
                 aria-label="Close chat"
-                className="rounded-md p-1.5 text-muted transition-colors hover:text-ink"
+                className="flex h-9 w-9 items-center justify-center rounded-full text-muted transition-colors hover:bg-ink/[0.05] hover:text-ink"
               >
                 <FiX />
               </button>
@@ -376,7 +376,7 @@ export default function ChatBot() {
                   <button
                     key={s}
                     onClick={() => send(s)}
-                    className="chip !px-2.5 !py-1 !text-[9.5px] !normal-case"
+                    className="chip !px-2.5 !py-1 !text-[11px] !normal-case"
                   >
                     {s}
                   </button>

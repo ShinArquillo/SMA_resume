@@ -12,6 +12,8 @@
   --line-strong: rgba(26, 20, 14, 0.18);
   --accent: #f0b400;
   --accent-2: #a66b1a;
+  /* Gold that passes 4.5:1 as small text on paper. Fills keep --accent. */
+  --accent-text: #8a5a0f;
   --accent-ink: #1a140e;
   --glass-bg: rgba(255, 252, 247, 0.64);
   --glass-solid: rgba(255, 252, 247, 0.9);
@@ -39,6 +41,7 @@
   --line-strong: rgba(245, 239, 228, 0.2);
   --accent: #ffd000;
   --accent-2: #e8a84a;
+  --accent-text: #ffd000;
   --accent-ink: #1a140e;
   --glass-bg: rgba(26, 22, 16, 0.55);
   --glass-solid: rgba(26, 22, 16, 0.9);
@@ -132,22 +135,48 @@ section[id] {
   scroll-margin-top: 6.5rem;
 }
 
+/* Keyboard users: first tab stop jumps past the fixed header and hero. */
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 100;
+  transform: translateY(-200%);
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  padding: 0.6rem 1rem;
+  font-family: var(--font-mono), monospace;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: transform 0.2s var(--ease-out);
+}
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
 .hero-title {
   text-shadow: 0 1px 0 var(--title-halo), 0 12px 36px var(--title-halo);
 }
 
-/* Mobile: feather around face center; desktop: right bias for text column */
+/* Mobile: keep the portrait crisp in the top half and fade it out under the
+   copy, which is anchored to the bottom of the stage. Desktop: right bias. */
 .hero-frame-mask {
-  -webkit-mask-image: radial-gradient(
-    140% 110% at 50% 38%,
-    #000 42%,
-    rgba(0, 0, 0, 0.55) 68%,
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 34%,
+    rgba(0, 0, 0, 0.55) 56%,
+    rgba(0, 0, 0, 0.18) 78%,
     transparent 100%
   );
-  mask-image: radial-gradient(
-    140% 110% at 50% 38%,
-    #000 42%,
-    rgba(0, 0, 0, 0.55) 68%,
+  mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 34%,
+    rgba(0, 0, 0, 0.55) 56%,
+    rgba(0, 0, 0, 0.18) 78%,
     transparent 100%
   );
 }
@@ -209,8 +238,8 @@ section[id] {
   }
 
   .eyebrow {
-    @apply inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.26em];
-    color: var(--accent);
+    @apply inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em];
+    color: var(--accent-text);
   }
   .eyebrow::before {
     content: '';
@@ -222,7 +251,13 @@ section[id] {
   }
 
   .label {
-    @apply font-mono text-[10px] uppercase tracking-[0.2em];
+    @apply font-mono text-[11px] uppercase tracking-[0.16em];
+    color: var(--muted);
+  }
+
+  /* Small mono metadata (dates, places, tags). One size everywhere. */
+  .meta {
+    @apply font-mono text-[11.5px] uppercase tracking-[0.14em];
     color: var(--muted);
   }
 
@@ -352,11 +387,11 @@ section[id] {
 
   .section-pad {
     /* Extra bottom pad on small screens so content clears the bottom glass nav */
-    @apply mx-auto max-w-container px-5 py-20 pb-28 sm:px-6 md:px-10 md:py-28 md:pb-28 lg:py-32;
+    @apply mx-auto max-w-container px-5 py-16 pb-24 sm:px-6 md:px-10 md:py-24 md:pb-24 lg:py-28;
   }
 
   .chip {
-    @apply inline-flex items-center rounded-full px-3 py-1.5 font-mono text-[10.5px] uppercase tracking-[0.08em] transition-all duration-300;
+    @apply inline-flex items-center rounded-full px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.06em] transition-all duration-300;
     background: color-mix(in srgb, var(--accent) 9%, transparent);
     border: 1px solid color-mix(in srgb, var(--accent) 26%, var(--line));
     color: color-mix(in srgb, var(--ink) 82%, var(--accent));
@@ -391,7 +426,7 @@ section[id] {
     transition: transform 0.4s var(--ease-out);
   }
   .link-line:hover {
-    color: var(--accent);
+    color: var(--accent-text);
   }
   .link-line:hover::after {
     transform: scaleX(1);

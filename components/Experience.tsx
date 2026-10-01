@@ -23,25 +23,12 @@ const experiences: Role[] = [
     period: 'Apr 2026 to Present',
     location: 'Philadelphia, PA · Remote',
     bullets: [
-      'Reduced operating costs by refactoring a fragmented codebase into maintainable structured code and consolidating hosting.',
-      'Replaced a slow, disconnected clock-in tool with the TVP Employee Portal: one React PWA used by 15 staff for role-based login, time tracking, shared availability, notes to anyone on the team, and project management.',
-      'Designed and shipped two more internal systems, an expenses / Ads / SEO operations portal and CRM + authentication tooling, for three TVP systems in total, all built in-house.',
-      'Developed Chrome extensions that consolidate finance data from external platforms into internal reporting.',
-      'Built these tools to organize and analyze business data in real time, so the team can decide from live numbers instead of manual collation.',
-      'Maintain and improve the live Tee Vision Printing website (teevisionprinting.com): cleanup, UX, performance, and production fixes as part of the engineering team.',
-      'Google Ads work: conversion tracking, campaign performance review, and pairing Ads data with Microsoft Clarity to guide site improvements.',
-      'Supported technical SEO (checks and indexing) and prepared stakeholder reports from product and campaign data.',
+      'Cut operating costs by consolidating hosting and refactoring a fragmented codebase.',
+      'Built three internal systems from scratch: an Employee Portal PWA used by 15 staff, an expenses / Ads / SEO operations portal, and CRM + auth tooling.',
+      'Shipped Chrome extensions that pull finance data from outside platforms into internal reporting.',
+      'Maintain the live storefront and run Google Ads: conversion tracking, Microsoft Clarity, technical SEO.',
     ],
-    skills: [
-      'Google Ads',
-      'Frontend',
-      'Backend',
-      'Internal Tools',
-      'Chrome Extensions',
-      'Cost Optimization',
-      'Microsoft Clarity',
-      'SEO',
-    ],
+    skills: ['React', 'Internal Tools', 'Chrome Extensions', 'Google Ads', 'SEO'],
   },
   {
     role: 'Freelance Systems Developer',
@@ -50,10 +37,10 @@ const experiences: Role[] = [
     period: '2025 to Present',
     location: 'Philippines',
     bullets: [
-      'Lead client systems end to end: scoping, build, UAT, and production deployment.',
-      'Delivered DFB Smart Shop for DFB Glass & Aluminum Supply: ecommerce with AI visual search, now live in production.',
+      'Lead client systems end to end: scope, build, UAT, production deployment.',
+      'Delivered DFB Smart Shop, an ecommerce site with AI visual search, now live.',
     ],
-    skills: ['Project Lead', 'Frontend', 'Backend', 'UAT', 'Documentation'],
+    skills: ['Project Lead', 'Full-Stack', 'UAT'],
   },
   {
     role: 'Product & Innovation Intern',
@@ -62,11 +49,10 @@ const experiences: Role[] = [
     period: 'Feb to May 2026',
     location: 'Batangas, Calabarzon',
     bullets: [
-      'Led website information architecture and digital publishing workflows for the Bookside product.',
-      'Designed UI/UX prototypes in Figma and translated business requirements into clearer product direction.',
-      'Researched implementation options and improved platform performance from usage and feedback.',
+      'Led information architecture and publishing workflows for the Bookside marketplace.',
+      'Prototyped buyer browsing and seller analytics in Figma.',
     ],
-    skills: ['IT Business Analysis', 'UI/UX', 'Figma', 'Process Optimization'],
+    skills: ['Business Analysis', 'UI/UX', 'Figma'],
   },
   {
     role: 'Customer Service Representative',
@@ -75,7 +61,7 @@ const experiences: Role[] = [
     period: 'Jun to Aug 2025',
     location: 'Lipa, Calabarzon',
     bullets: [
-      'Resolved high-volume customer issues under SLA pressure and earned team commendations plus performance incentives.',
+      'Resolved high-volume customer issues within SLA; earned team commendations and performance incentives.',
     ],
     skills: ['CRM', 'Communication', 'Customer Support'],
   },
@@ -90,7 +76,7 @@ export default function Experience() {
       index="01"
       title="Experience"
       eyebrow="Career"
-      caption="Four roles across product engineering, growth, and delivery. Currently shipping production work for a US apparel brand."
+      caption="Four roles across engineering, growth, and delivery. Currently shipping production work for a US apparel brand."
     >
       <div className="-mx-4 md:-mx-6">
         {experiences.map((exp, index) => (
@@ -107,31 +93,31 @@ export default function Experience() {
             <span className="absolute inset-x-4 top-0 h-px origin-left scale-x-0 bg-accent transition-transform duration-700 ease-out group-hover:scale-x-100 md:inset-x-6" />
 
             <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-              <span className="font-mono text-[10px] tabular-nums tracking-[0.2em] text-accent">
+              <span className="font-mono text-[11.5px] tabular-nums tracking-[0.16em] text-accent-text">
                 {String(index + 1).padStart(2, '0')}
               </span>
               {exp.current && (
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-accent/40 bg-accent/10 px-2.5 py-0.5 font-mono text-[9.5px] uppercase tracking-[0.16em] text-accent">
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-accent/40 bg-accent/10 px-2.5 py-0.5 font-mono text-[11px] uppercase tracking-[0.14em] text-accent-text">
                   <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
                   Current
                 </span>
               )}
-              <span className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-muted">
+              <span className="font-mono text-[11.5px] uppercase tracking-[0.14em] text-muted">
                 {exp.period}
               </span>
               <span className="text-line">/</span>
-              <span className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-muted">
+              <span className="font-mono text-[11.5px] uppercase tracking-[0.14em] text-muted">
                 {exp.location}
               </span>
             </div>
 
             <div className="mt-5 grid gap-x-10 gap-y-6 lg:grid-cols-[minmax(0,20rem)_minmax(0,1fr)]">
               <div>
-                <h3 className="t-display text-[1.75rem] font-semibold leading-[1.05] transition-colors duration-300 group-hover:text-accent md:text-[2.15rem]">
+                <h3 className="t-display text-[1.75rem] font-semibold leading-[1.05] transition-colors duration-300 group-hover:text-accent-text md:text-[2.15rem]">
                   {exp.role}
                 </h3>
                 <p className="mt-2 text-base text-muted">{exp.company}</p>
-                <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.14em] text-accent2">
+                <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.14em] text-accent-text">
                   {exp.meta}
                 </p>
               </div>

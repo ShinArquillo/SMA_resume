@@ -15,6 +15,8 @@ module.exports = {
         muted: 'var(--muted)',
         accent: 'var(--accent)',
         accent2: 'var(--accent-2)',
+        /* Use for accent-coloured TEXT; `accent` stays for fills and bars. */
+        'accent-text': 'var(--accent-text)',
         line: 'var(--line)',
       },
       borderColor: {

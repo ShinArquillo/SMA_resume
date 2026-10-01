@@ -36,13 +36,13 @@ export default function Education() {
         transition={{ duration: 0.7, ease }}
         className="card card-hover group overflow-hidden p-7 md:p-10"
       >
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-[10.5px] uppercase tracking-[0.16em] text-muted">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-[11.5px] uppercase tracking-[0.16em] text-muted">
           <span>Graduated 2026</span>
           <span className="text-line">/</span>
           <span>Lipa City, Batangas</span>
         </div>
 
-        <h3 className="t-display mt-4 text-[1.9rem] font-semibold leading-[1.04] transition-colors duration-300 group-hover:text-accent md:text-[2.6rem]">
+        <h3 className="t-display mt-4 text-[1.9rem] font-semibold leading-[1.04] transition-colors duration-300 group-hover:text-accent-text md:text-[2.6rem]">
           Batangas State University
         </h3>
         <p className="mt-2 text-base text-muted md:text-lg">BSIT Major in Business Analytics</p>

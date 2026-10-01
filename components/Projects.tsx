@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from 'framer-motion'
 import Image from 'next/image'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { FiArrowUpRight, FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import SectionShell from './SectionShell'
 
@@ -52,8 +52,8 @@ const projects: Project[] = [
     summary:
       'Live customer storefront: cleanup, UX, SEO, and Ads-informed improvements as part of the TVP team.',
     description: [
-      'Live customer-facing site for Tee Vision Printing: custom apparel, quotes, and ecommerce. Contributed as part of the TVP engineering team.',
-      'Ongoing production work: cleanup, UX and performance improvements, technical SEO, and Google Ads / Clarity-informed site changes.',
+      'Custom apparel storefront with quotes and ecommerce, maintained as part of the TVP team.',
+      'Cleanup, UX and performance fixes, technical SEO, and Ads / Clarity-driven changes.',
     ],
     stack: ['Full-Stack', 'SEO', 'Google Ads', 'Microsoft Clarity'],
     images: [
@@ -72,9 +72,8 @@ const projects: Project[] = [
     summary:
       'Replaced a slow, disconnected clock-in tool for 15 staff: time tracking, availability, notes, and projects in one PWA.',
     description: [
-      'The team was on a free clock-in tool that was slow and disconnected from everything else, so there was no way to see who was available or to run projects in the same place.',
-      'React PWA for Tee Vision Printing, used by 15 staff, that folds it all into one app: clock in/out, payslip download by pay period, shared availability across the whole team, and notes anyone can post to anyone.',
-      'Role-based demo (Owner, Admin, Employee) with owner/admin approval on calendar notes. Auth is wired to Supabase.',
+      'One app for 15 staff: clock in/out, payslips by pay period, team availability, and shared notes.',
+      'Owner, Admin, and Employee roles with approvals, on Supabase auth.',
     ],
     stack: ['React', 'PWA', 'Supabase', 'Role-Based Auth', 'Time Tracking'],
     images: [
@@ -107,8 +106,8 @@ const projects: Project[] = [
     summary:
       'Internal leads, Ads, and diagnostics portal: spend, funnel, traffic, and follow-up in one place.',
     description: [
-      'Production internal tool for Tee Vision Printing: lead review, campaign performance, paid-funnel diagnostics, and traffic diagnostics tied to Google Ads and site tracking.',
-      'Built for day-to-day ops (filters, exports, call import, error monitor). Gallery shows the real UI with live metric values blurred for privacy.',
+      'Lead review, campaign performance, and paid-funnel and traffic diagnostics tied to Google Ads.',
+      'Filters, exports, call import, and an error monitor. Live figures are blurred for privacy.',
     ],
     stack: ['Internal Tools', 'Google Ads', 'Analytics', 'Dashboards', 'Full-Stack'],
     images: [
@@ -138,8 +137,8 @@ const projects: Project[] = [
     summary:
       'Marketplace UX for buyers and sellers: category shelves, seller analytics, and business insights.',
     description: [
-      'Led information architecture and digital publishing workflows for Bookside during the Product & Innovation internship at Tech Executive Labs.',
-      'Designed buyer category browsing (interactive bookshelf) and Seller Center business insights: sales funnel, product analytics, and performance dashboards.',
+      'Led information architecture and publishing workflows during the Tech Executive Labs internship.',
+      'Designed the bookshelf category browser and Seller Center sales and product insights.',
     ],
     stack: ['UI/UX', 'Figma', 'Information Architecture', 'Dashboards'],
     images: [
@@ -176,8 +175,8 @@ const projects: Project[] = [
     summary:
       'Full HR portal: attendance, leave, performance, activity reports, and admin analytics.',
     description: [
-      'PeopleConnect HRMS: employee self-service dashboard plus admin tools for attendance monitoring, leave, performance, and reporting.',
-      'Modules include clock in/out history, department attendance analytics, and filtered report views. Live demo available.',
+      'Employee self-service plus admin tools for attendance, leave, performance, and reports.',
+      'Clock-in history, department attendance analytics, and filtered report views.',
     ],
     stack: ['PHP', 'HRMS', 'Attendance', 'Reports', 'Web Portal'],
     images: [
@@ -218,8 +217,8 @@ const projects: Project[] = [
     summary:
       'Glass & aluminum ecommerce: visual search (88.9% hold-out accuracy), quotes, inventory, and rider tracking.',
     description: [
-      'Client commission for DFB Glass & Aluminum Supply: shop catalog, custom-size quotes, and admin inventory/orders.',
-      'AI visual search (MobileNet + KNN) hit 88.9% overall accuracy on a hold-out set (macro F1 0.90), with live rider location sharing for deliveries.',
+      'Catalog, custom-size quotes, inventory, orders, and live rider tracking for DFB Glass & Aluminum.',
+      'Photo search (MobileNet + KNN) at 88.9% hold-out accuracy, macro F1 0.90.',
     ],
     stack: ['Project Lead', 'Full-Stack', 'Applied AI', 'Visual Search', 'Maps'],
     images: [
@@ -250,10 +249,8 @@ const projects: Project[] = [
     summary:
       'Pharmacy POS and inventory across 690+ medicines: sales, expiry tracking, Prophet sales forecasting, and an AI assistant. Live demo online.',
     description: [
-      'University capstone: led end-to-end delivery of Phoebe Drugstore — POS and sales flows, inventory and expiry tracking, staff accounts, and role-based manager and staff portals.',
-      'Sales forecasting per product with Prophet and automatic model selection, reporting accuracy, MAPE, MAE, and RMSE against a recent actual-sales window so managers can see when demand runs below plan.',
-      'Sustainability analytics scores waste, expiry risk, and slow turnover, with low-stock reorders, returns, and disposal tracking in one place.',
-      'AI pharmacy assistant answers medicine, stock, and product-location questions across the catalog. Built on Flask with Supabase PostgreSQL, plus UAT and deployment documentation.',
+      'POS, inventory, and expiry tracking across 690+ medicines with manager and staff portals.',
+      'Per-product Prophet forecasting, waste analytics, and an AI pharmacy assistant.',
     ],
     stack: [
       'Project Lead',
@@ -306,8 +303,8 @@ const projects: Project[] = [
     summary:
       'Personal finance goal setter: track money flow, savings, and reports. Led the school team from design through build.',
     description: [
-      'Led a school project team on SaveME: landing page, dashboard, and reports & analytics for balances, savings goals, and money in/out.',
-      'Designed in Figma and shipped a live PHP portal with charts, activity distribution, and downloadable reports.',
+      'Led the team from Figma design to a live PHP portal for savings goals and money in/out.',
+      'Dashboard charts, activity distribution, and downloadable reports.',
     ],
     stack: ['Project Lead', 'PHP', 'UI/UX', 'Figma', 'Dashboards'],
     images: [
@@ -343,13 +340,17 @@ const projects: Project[] = [
     category: 'collab',
     summary: 'Doctor-formulated skincare product: admin interface and API support.',
     description: [
-      'Collaborative side project with other developers on a Dubai-based doctor-formulated skincare product.',
-      'Contributed to the administrative interface and API.',
+      'Side project with other developers for a doctor-formulated skincare brand.',
+      'Contributed to the admin interface and API.',
     ],
     stack: ['Admin Interface', 'API', 'Full-Stack'],
-    links: [
-      { label: 'Live site', href: 'https://doctorsdose-co-uk.vercel.app/', primary: true },
+    images: [
+      {
+        src: '/images/projects/doctorsdose-home.png',
+        alt: 'Doctors Dose skincare storefront homepage',
+      },
     ],
+    links: [{ label: 'Live site', href: 'https://www.doctorsdose.co.uk/', primary: true }],
   },
   {
     id: 'pharma',
@@ -358,9 +359,16 @@ const projects: Project[] = [
     category: 'practice',
     summary: 'Flask pharmaceutical sales dashboard with CSV upload and demo authentication.',
     description: [
-      'School project dashboard for pharmaceutical sales and inventory data: upload a CSV and explore the demo with sample credentials.',
+      'Upload a sales CSV and explore revenue over time and current inventory levels.',
+      'Date, category, and product filters with export. Demo login provided.',
     ],
     stack: ['Flask', 'Python', 'Dashboards', 'CSV'],
+    images: [
+      {
+        src: '/images/projects/pharma-dashboard.png',
+        alt: 'Pharma Dashboard: filters, daily revenue line chart, and inventory levels by product',
+      },
+    ],
     links: [
       {
         label: 'Live demo',
@@ -377,8 +385,8 @@ const projects: Project[] = [
     summary:
       'Windows desktop application for RGO Lipa operations: admin accounts, orders, announcements, and feedback.',
     description: [
-      'C# WinForms software application for campus organization workflows: admin login, accounts, orders, announcements, FAQ, and feedback modules.',
-      'Source available on GitHub (personal account).',
+      'C# WinForms app for campus organization workflows: accounts, orders, announcements, FAQ, feedback.',
+      'Source available on GitHub.',
     ],
     stack: ['C#', 'WinForms', 'Desktop App', '.NET'],
     links: [
@@ -395,6 +403,8 @@ export default function Projects() {
   const [filter, setFilter] = useState<Category>('all')
   const [index, setIndex] = useState(0)
   const [imageIndex, setImageIndex] = useState(0)
+  const browserRef = useRef<HTMLDivElement>(null)
+  const inViewRef = useRef(false)
 
   const filtered = useMemo(() => {
     if (filter === 'all') return projects
@@ -412,8 +422,21 @@ export default function Projects() {
     setImageIndex(0)
   }, [index])
 
+  // Arrow keys only drive the browser while it is actually on screen, so they
+  // never hijack keyboard scrolling elsewhere on the page.
+  useEffect(() => {
+    const el = browserRef.current
+    if (!el) return
+    const io = new IntersectionObserver(([entry]) => (inViewRef.current = entry.isIntersecting), {
+      threshold: 0.35,
+    })
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
+      if (!inViewRef.current) return
       const target = e.target as HTMLElement | null
       if (target && ['INPUT', 'TEXTAREA'].includes(target.tagName)) return
       if (e.key === 'ArrowRight') {
@@ -445,7 +468,7 @@ export default function Projects() {
         <p className="max-w-prose text-sm leading-relaxed text-muted md:text-[0.95rem]">
           Production systems, commissions, and academic builds with live demos where available.
         </p>
-        <p className="font-mono text-[11px] tabular-nums tracking-[0.22em] text-accent">
+        <p className="font-mono text-[11.5px] tabular-nums tracking-[0.18em] text-accent-text">
           {filtered.length > 0
             ? `${String(index + 1).padStart(2, '0')} / ${String(filtered.length).padStart(2, '0')}`
             : '00 / 00'}
@@ -453,7 +476,7 @@ export default function Projects() {
       </div>
 
       <div
-        role="tablist"
+        role="group"
         aria-label="Filter projects"
         className="mb-6 flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
@@ -464,10 +487,10 @@ export default function Projects() {
           return (
             <button
               key={f.id}
-              role="tab"
-              aria-selected={isActive}
+              type="button"
+              aria-pressed={isActive}
               onClick={() => setFilter(f.id)}
-              className={`relative shrink-0 rounded-full px-4 py-2 font-mono text-[10.5px] uppercase tracking-[0.14em] transition-colors duration-300 ${
+              className={`relative h-10 shrink-0 rounded-full px-4 font-mono text-[11.5px] uppercase tracking-[0.12em] transition-colors duration-300 ${
                 isActive ? 'text-[#1a140e]' : 'border border-line text-muted hover:text-ink'
               }`}
             >
@@ -480,7 +503,7 @@ export default function Projects() {
               )}
               <span className="relative">
                 {f.label}
-                <span className={`ml-1.5 tabular-nums ${isActive ? 'opacity-65' : 'opacity-45'}`}>
+                <span className={`ml-1.5 tabular-nums ${isActive ? 'opacity-80' : 'opacity-70'}`}>
                   {count}
                 </span>
               </span>
@@ -496,11 +519,16 @@ export default function Projects() {
         transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
         className="card overflow-hidden"
       >
-        <div className="grid lg:grid-cols-[minmax(0,16.5rem)_1fr]">
+        <div ref={browserRef} className="grid lg:grid-cols-[minmax(0,16.5rem)_1fr]">
           {/* Browse list */}
+          {/* Phone: horizontal strip. Desktop: full list, no nested scroll, so the
+              page scroll is the only scroll. */}
+          {/* Only horizontal swipes bypass Lenis. A plain data-lenis-prevent let
+              vertical wheel over this strip scroll the page natively while Lenis
+              was still easing, which snapped the page back (the "jump"). */}
           <div
-            data-lenis-prevent
-            className="flex max-h-[14rem] flex-row gap-2 overflow-x-auto border-b border-line p-3 lg:max-h-[38rem] lg:flex-col lg:gap-1 lg:overflow-y-auto lg:border-b-0 lg:border-r"
+            data-lenis-prevent-horizontal
+            className="flex flex-row gap-2 overflow-x-auto border-b border-line p-3 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:flex-col lg:gap-1 lg:overflow-visible lg:border-b-0 lg:border-r"
           >
             {filtered.map((project, i) => {
               const selected = i === index
@@ -508,6 +536,7 @@ export default function Projects() {
                 <button
                   key={project.id}
                   type="button"
+                  aria-current={selected ? 'true' : undefined}
                   onClick={() => setIndex(i)}
                   className={`group/item relative min-w-[11.5rem] shrink-0 overflow-hidden rounded-xl px-3.5 py-3 text-left transition-colors duration-300 lg:min-w-0 ${
                     selected ? 'text-[#1a140e]' : 'text-muted hover:text-ink'
@@ -527,8 +556,8 @@ export default function Projects() {
                   />
                   <span className="relative block">
                     <span
-                      className={`block font-mono text-[9.5px] uppercase tracking-[0.14em] ${
-                        selected ? 'opacity-70' : 'text-accent'
+                      className={`block font-mono text-[11px] uppercase tracking-[0.12em] ${
+                        selected ? 'opacity-85' : 'text-accent-text'
                       }`}
                     >
                       {String(i + 1).padStart(2, '0')} · {project.tag}
@@ -547,7 +576,9 @@ export default function Projects() {
           </div>
 
           {/* Detail stage */}
-          <div className="relative flex min-h-[22rem] flex-col p-5 md:p-8 lg:min-h-[30rem]">
+          {/* Fixed media height + min-height keep the card the same size from
+              project to project, so switching never shifts the page. */}
+          <div className="relative flex min-h-[61rem] flex-col p-5 sm:min-h-0 md:p-8 lg:min-h-[60rem]">
             <div className="mb-6 flex items-center justify-between gap-3">
               <span className="eyebrow">Gallery</span>
               <div className="flex items-center gap-2">
@@ -572,17 +603,17 @@ export default function Projects() {
               </div>
             </div>
 
-            <AnimatePresence mode="wait">
-              {active && (
+            {/* New content swaps in immediately and fades up. No exit phase, so
+                the card never collapses between projects. */}
+            {active && (
                 <motion.div
                   key={active.id}
-                  initial={{ opacity: 0, y: 16, filter: 'blur(6px)' }}
-                  animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                  exit={{ opacity: 0, y: -12, filter: 'blur(6px)' }}
-                  transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.22, ease: 'easeOut' }}
                   className="flex flex-1 flex-col"
                 >
-                  <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-accent2">
+                  <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-accent-text">
                     {active.tag}
                   </p>
                   <h3 className="t-display mt-3 text-[1.7rem] font-semibold leading-[1.05] md:text-[2.35rem]">
@@ -592,36 +623,50 @@ export default function Projects() {
                     {active.summary}
                   </p>
 
-                  {active.images && active.images.length > 0 && (
-                    <div className="mt-7">
-                      <div className="relative aspect-[16/10] overflow-hidden rounded-xl border border-line bg-ink/[0.04]">
+                  <div className="mt-6">
+                    <div className="relative h-[13rem] overflow-hidden rounded-xl border border-line bg-ink/[0.04] sm:h-[17rem] md:h-[22rem]">
+                      {active.images && active.images.length > 0 ? (
                         <AnimatePresence mode="wait">
                           <motion.div
                             key={active.images[imageIndex]?.src}
-                            initial={{ opacity: 0, scale: 1.02 }}
-                            animate={{ opacity: 1, scale: 1 }}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                            transition={{ duration: 0.25, ease: 'easeOut' }}
                             className="absolute inset-0"
                           >
                             <Image
                               src={active.images[imageIndex].src}
                               alt={active.images[imageIndex].alt}
                               fill
-                              quality={100}
-                              priority
+                              quality={90}
                               className="object-contain object-top"
-                              sizes="(max-width: 768px) 100vw, (max-width: 1280px) 80vw, 1200px"
+                              sizes="(max-width: 768px) 100vw, (max-width: 1280px) 70vw, 900px"
                             />
                           </motion.div>
                         </AnimatePresence>
-                      </div>
-                      {active.images.length > 1 && (
-                        <div
-                          data-lenis-prevent
-                          className="mt-3 flex gap-2.5 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-                        >
-                          {active.images.map((img, i) => (
+                      ) : (
+                        <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 text-center">
+                          <span className="t-display text-5xl text-ink/15 md:text-7xl">
+                            {active.title
+                              .split(' ')
+                              .slice(0, 2)
+                              .map((w) => w[0])
+                              .join('')}
+                          </span>
+                          <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted">
+                            {active.links?.length ? 'No screenshots · open the live link' : 'Internal tool · no public screenshots'}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                    {/* Row height is reserved even with one screenshot. */}
+                    <div
+                      data-lenis-prevent-horizontal
+                      className="mt-3 flex h-[3.75rem] gap-2.5 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                    >
+                      {active.images && active.images.length > 1 &&
+                          active.images.map((img, i) => (
                             <button
                               key={img.src}
                               type="button"
@@ -643,12 +688,10 @@ export default function Projects() {
                               />
                             </button>
                           ))}
-                        </div>
-                      )}
                     </div>
-                  )}
+                  </div>
 
-                  <ul className="mt-7 max-w-prose space-y-3 text-sm leading-relaxed text-muted">
+                  <ul className="mt-6 max-w-prose space-y-2.5 text-sm leading-relaxed text-muted">
                     {active.description.map((line, i) => (
                       <li key={i} className="grid grid-cols-[auto_1fr] gap-3.5">
                         <span className="mt-[0.55rem] h-1 w-1 shrink-0 rounded-full bg-accent" />
@@ -665,7 +708,7 @@ export default function Projects() {
                     ))}
                   </ul>
 
-                  <div className="mt-auto flex flex-wrap items-center gap-3 pt-8">
+                  <div className="mt-auto flex flex-wrap items-center gap-3 pt-7">
                     {active.links?.length ? (
                       active.links.map((link) => (
                         <a
@@ -682,17 +725,16 @@ export default function Projects() {
                         </a>
                       ))
                     ) : (
-                      <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted">
+                      <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted">
                         Screenshots only · internal tool
                       </p>
                     )}
-                    <span className="ml-auto hidden font-mono text-[9.5px] uppercase tracking-[0.18em] text-muted md:inline">
+                    <span className="ml-auto hidden font-mono text-[11px] uppercase tracking-[0.18em] text-muted md:inline">
                       ← → to browse
                     </span>
                   </div>
                 </motion.div>
               )}
-            </AnimatePresence>
           </div>
         </div>
       </motion.div>

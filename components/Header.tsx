@@ -33,12 +33,14 @@ export default function Header() {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) setActive(`#${entry.target.id}`)
+          if (!entry.isIntersecting) return
+          // Back in the hero: no section is "current".
+          setActive(entry.target.id === 'home' ? '' : `#${entry.target.id}`)
         })
       },
       { rootMargin: '-45% 0px -45% 0px', threshold: 0 }
     )
-    links.forEach(({ href }) => {
+    ;['#home', ...links.map((l) => l.href)].forEach((href) => {
       const el = document.getElementById(href.slice(1))
       if (el) observer.observe(el)
     })
@@ -52,8 +54,22 @@ export default function Header() {
     }
   }, [menuOpen])
 
+  // Close the sheet on Escape and whenever the viewport grows past the breakpoint.
+  useEffect(() => {
+    if (!menuOpen) return
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setMenuOpen(false)
+    const mq = window.matchMedia('(min-width: 1024px)')
+    const onChange = () => mq.matches && setMenuOpen(false)
+    document.addEventListener('keydown', onKey)
+    mq.addEventListener('change', onChange)
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      mq.removeEventListener('change', onChange)
+    }
+  }, [menuOpen])
+
   return (
-    <header className="sticky top-0 z-50 px-3 pt-3 md:px-5 md:pt-4">
+    <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 md:px-5 md:pt-4">
       <motion.div
         animate={{
           maxWidth: scrolled && !menuOpen ? '64rem' : '82.5rem',
@@ -65,28 +81,30 @@ export default function Header() {
             : 'rounded-2xl border border-transparent bg-transparent'
         }`}
       >
-        <div className="flex h-14 items-center justify-between gap-4 px-4 md:h-16 md:px-5">
+        <div className="flex h-14 items-center justify-between gap-4 px-3 md:h-16 md:px-5">
           <a
             href="#home"
-            className="group flex items-center gap-2.5"
+            className="group flex h-10 items-center gap-2.5 rounded-full pr-2"
+            aria-label="Sheena Mae Arquillo, back to top"
             onClick={() => setMenuOpen(false)}
           >
             <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-accent font-mono text-[11px] font-bold text-[#1a140e] transition-transform duration-300 group-hover:rotate-6">
               SA
             </span>
-            <span className="font-display text-[0.95rem] font-semibold tracking-tight transition-colors group-hover:text-accent">
+            <span className="font-display text-[0.95rem] font-semibold tracking-tight transition-colors group-hover:text-accent-text">
               Sheena&nbsp;Mae
             </span>
           </a>
 
-          <nav className="hidden items-center gap-1 lg:flex">
+          <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
             {links.map((link) => {
               const isActive = active === link.href
               return (
                 <a
                   key={link.href}
                   href={link.href}
-                  className={`relative rounded-full px-3.5 py-2 font-mono text-[10.5px] uppercase tracking-[0.14em] transition-colors duration-300 ${
+                  aria-current={isActive ? 'location' : undefined}
+                  className={`relative flex h-10 items-center rounded-full px-3.5 font-mono text-[11.5px] uppercase tracking-[0.12em] transition-colors duration-300 ${
                     isActive ? 'text-ink' : 'text-muted hover:text-ink'
                   }`}
                 >
@@ -103,7 +121,7 @@ export default function Header() {
             })}
             <Link
               href="/resume"
-              className="rounded-full px-3.5 py-2 font-mono text-[10.5px] uppercase tracking-[0.14em] text-muted transition-colors duration-300 hover:text-accent"
+              className="flex h-10 items-center rounded-full px-3.5 font-mono text-[11.5px] uppercase tracking-[0.12em] text-muted transition-colors duration-300 hover:text-ink"
             >
               Resume
             </Link>
@@ -112,7 +130,7 @@ export default function Header() {
           <div className="flex items-center gap-2">
             <a
               href="mailto:arquillosheenamae@gmail.com"
-              className="group hidden items-center gap-1.5 rounded-full bg-accent px-4 py-2 font-mono text-[10.5px] uppercase tracking-[0.14em] text-[#1a140e] shadow-[0_10px_26px_-14px_color-mix(in_srgb,var(--accent)_90%,transparent)] transition-transform duration-300 hover:-translate-y-0.5 sm:inline-flex"
+              className="group hidden h-10 items-center gap-1.5 rounded-full bg-accent px-4 font-mono text-[11.5px] uppercase tracking-[0.12em] text-[#1a140e] shadow-[0_10px_26px_-14px_color-mix(in_srgb,var(--accent)_90%,transparent)] transition-transform duration-300 hover:-translate-y-0.5 sm:inline-flex"
             >
               Hire me
               <FiArrowUpRight className="text-xs transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -120,8 +138,8 @@ export default function Header() {
 
             <button
               onClick={toggleTheme}
-              aria-label="Toggle day or night theme"
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-line text-accent transition-colors hover:border-accent hover:bg-accent/10"
+              aria-label={theme === 'dark' ? 'Switch to day mode' : 'Switch to night mode'}
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-line text-ink transition-colors hover:border-accent hover:bg-accent/10"
             >
               {theme === 'dark' ? <FiMoon className="text-sm" /> : <FiSun className="text-sm" />}
             </button>
@@ -130,7 +148,8 @@ export default function Header() {
               onClick={() => setMenuOpen((o) => !o)}
               aria-label={menuOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={menuOpen}
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-line text-ink transition-colors hover:border-accent lg:hidden"
+              aria-controls="mobile-menu"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-line text-ink transition-colors hover:border-accent lg:hidden"
             >
               {menuOpen ? <FiX /> : <FiMenu />}
             </button>
@@ -140,6 +159,8 @@ export default function Header() {
         <AnimatePresence>
           {menuOpen && (
             <motion.nav
+              id="mobile-menu"
+              aria-label="Primary"
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
@@ -157,10 +178,10 @@ export default function Header() {
                     <a
                       href={link.href}
                       onClick={() => setMenuOpen(false)}
-                      className="flex items-center justify-between rounded-xl px-3 py-3 font-mono text-[11px] uppercase tracking-[0.16em] text-muted transition-colors hover:bg-accent/10 hover:text-ink"
+                      className="flex items-center justify-between rounded-xl px-3 py-3 font-mono text-[12px] uppercase tracking-[0.14em] text-ink transition-colors hover:bg-accent/10"
                     >
                       {link.label}
-                      <span className="text-accent">{String(i + 1).padStart(2, '0')}</span>
+                      <span className="text-accent-text">{String(i + 1).padStart(2, '0')}</span>
                     </a>
                   </motion.li>
                 ))}
@@ -172,10 +193,10 @@ export default function Header() {
                   <Link
                     href="/resume"
                     onClick={() => setMenuOpen(false)}
-                    className="flex items-center justify-between rounded-xl px-3 py-3 font-mono text-[11px] uppercase tracking-[0.16em] text-muted transition-colors hover:bg-accent/10 hover:text-ink"
+                    className="flex items-center justify-between rounded-xl px-3 py-3 font-mono text-[12px] uppercase tracking-[0.14em] text-ink transition-colors hover:bg-accent/10"
                   >
                     Resume
-                    <FiArrowUpRight className="text-accent" />
+                    <FiArrowUpRight className="text-accent-text" />
                   </Link>
                 </motion.li>
               </ul>

@@ -32,7 +32,7 @@ function MarqueeStrip() {
       <Marquee
         items={heroKeywords}
         baseVelocity={1.1}
-        className="font-display text-2xl font-medium italic tracking-tight text-muted/55 md:text-3xl lg:text-[2.25rem]"
+        className="font-display text-2xl font-medium italic tracking-tight text-muted/80 md:text-3xl lg:text-[2.25rem]"
       />
     </div>
   )
@@ -53,11 +53,14 @@ function Divider() {
 export default function Home() {
   return (
     <>
+      <a href="#experience" className="skip-link">
+        Skip to content
+      </a>
       <SmoothScroll />
       <ScrollProgress />
       <SectionIndex />
       <Header />
-      <main className="relative">
+      <main id="main" className="relative">
         <Hero />
         <MarqueeStrip />
 

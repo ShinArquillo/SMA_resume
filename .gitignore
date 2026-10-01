@@ -10,6 +10,7 @@
 
 # next.js
 /.next/
+/.next-qa/
 /out/
 
 # production
@@ -33,4 +34,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# QA screenshots + reports (scripts/qa-screenshots.js)
+/qa-output
 
